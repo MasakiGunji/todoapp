@@ -1,36 +1,39 @@
 package com.example.todoapp.models;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Person")
-public class Person {
+public class Task {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @ManyToOne()
+  @JoinColumn(name = "tasktype_id")
+  private Tasktype tasktype;
+
   @NotBlank
-  @Size(max = 120)
-  private String name;
-  @NotNull
-  @Min(0)
-  @Max(120)
-  private Integer age;
+  private String title;
+
   @NotBlank
-  @Email
-  @Size(max = 254)
-  private String email;
+  private String text;
+
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate deadline;
+
+
 }

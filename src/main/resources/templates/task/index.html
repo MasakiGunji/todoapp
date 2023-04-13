@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Person</title>
+  <style>
+    .red{
+      color: red;
+    }
+    .invalid{
+      border:2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h2>登録</h2>
+  <form th:action="@{/task/create}" th:object="${task}" method="post">
+    <label>タイトル</label>
+    <input type="text" th:field="*{title}" th:errorclass="invalid"><br>
+    <div class="red" th:errors="*{title}"></div>
+    <label>テキスト</label>
+    <input type="text" th:field="*{text}" th:errorclass="invalid"><br>
+    <div class="red" th:errors="*{text}"></div>
+    <label>Status</label>
+    <select th:field="*{tasktype}">
+      <tr th:each="tasktype : ${tasktypes}">
+        <option th:value="${tasktype.id}"  th:text="${tasktype.type}"></option>
+      </tr>
+    </select><br>
+    <label>期限</label>
+    <input type="date" th:field="*{deadline}">
+    <div class="red" th:errors="*{deadline}"></div>
+    <button>送信</button>
+  </form>
+  <h2>一覧</h2>
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>status</td>
+        <td>タイトル</td>
+        <td>コメント</td>
+        <td>終了日</td>
+      </tr>
+    </thead>
+    <tr th:each="task : ${tasks}">
+      <td>[[${task.id}]]</td>
+      <td>[[${task.tasktype.type}]]</td>
+      <td>[[${task.title}]]</td>
+      <td>[[${task.text}]]</td>
+      <td>[[${task.deadline}]]</td>
+      <!-- <td><a th:href="@{/tasktype/edit/{id}(id=${tasktype.id})}">編集</a></td>
+      <td><a th:href="@{/tasktype/delete/{id}(id=${tasktype.id})}">削除</a></td> -->
+    </tr>
+  </table>
+</body>
+</html>
