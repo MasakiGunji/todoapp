@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Person</title>
+  <style>
+    .red{
+      color: red;
+    }
+    .invalid{
+      border:2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <h2>登録</h2>
+  <form th:action="@{/tasktype/create}" th:object="${tasktype}" method="post">
+    <label>タイプ</label>
+    <input type="text" th:field="*{type}" th:errorclass="invalid"><br>
+    <div class="red" th:errors="*{type}"></div>
+    <label>コメント</label>
+    <input type="text" th:field="*{comment}" th:errorclass="invalid"><br>
+    <div class="red" th:errors="*{comment}"></div>
+    <label>メールアドレス</label>
+    <button>送信</button>
+  </form>
+  <h2>一覧</h2>
+  <table>
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>タイプ</td>
+        <td>コメント</td>
+      </tr>
+    </thead>
+    <tr th:each="tasktype : ${tasktypes}">
+      <td>[[${tasktype.id}]]</td>
+      <td>[[${tasktype.type}]]</td>
+      <td>[[${tasktype.comment}]]</td>
+      <td><a th:href="@{/tasktype/edit/{id}(id=${tasktype.id})}">編集</a></td>
+      <td><a th:href="@{/tasktype/delete/{id}(id=${tasktype.id})}">削除</a></td>
+    </tr>
+  </table>
+</body>
+</html>

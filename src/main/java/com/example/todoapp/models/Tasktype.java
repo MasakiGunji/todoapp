@@ -1,36 +1,35 @@
 package com.example.todoapp.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
-
+  
 @Data
 @Entity
-@Table(name = "Person")
-public class Person {
+public class Tasktype {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private int id;
 
   @NotBlank
   @Size(max = 120)
-  private String name;
-  @NotNull
-  @Min(0)
-  @Max(120)
-  private Integer age;
+  private String type;
+
   @NotBlank
-  @Email
-  @Size(max = 254)
-  private String email;
+  @Size(max = 120)
+  private String comment;
+
+  @OneToMany(mappedBy = "tasktype")
+  private List<Task> tasks = new ArrayList<>();
 }

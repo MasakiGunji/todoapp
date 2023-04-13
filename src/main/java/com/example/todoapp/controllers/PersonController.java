@@ -17,36 +17,37 @@ import com.example.todoapp.repository.PersonRepository;
 @Controller
 public class PersonController {
   
-  private final PersonRepository repository;
-  public PersonController(PersonRepository repository){
-    this.repository = repository;
+  private final PersonRepository personrepository;
+  
+  public PersonController(PersonRepository personrepository){
+    this.personrepository = personrepository;
   }
 
   @GetMapping("/")
   public String index(@ModelAttribute Person person, Model model){
-    model.addAttribute("pepole", repository.findAll());
+    model.addAttribute("people", personrepository.findAll());
     return "person/index";
   }
 
   @PostMapping("/create")
   public String create(@Validated @ModelAttribute Person person, BindingResult result, Model model){
     if (result.hasErrors()){
-      model.addAttribute("pepole", repository.findAll()); 
+      model.addAttribute("people", personrepository.findAll()); 
       return "person/index";
     }
-    repository.saveAndFlush(person);
+    personrepository.saveAndFlush(person);
     return "person/create";
   }
 
-  @GetMapping("/delete/{id}")	// 初期データの投入
-  public String remove(@PathVariable long id){	
-    repository.deleteById(id);	
+  @GetMapping("/delete/{id}")
+  public String remove(@PathVariable Integer id){
+    personrepository.deleteById(id);	
     return "redirect:/";	
   }
 
   @GetMapping("/edit/{id}")
-  public String edit(@PathVariable long id, Model model){
-    model.addAttribute("person", repository.findById(id)); //一覧用データの用意
+  public String edit(@PathVariable Integer id, Model model){
+    model.addAttribute("person", personrepository.findById(id));
     return "person/edit";
   }
 
@@ -55,9 +56,9 @@ public class PersonController {
     if (result.hasErrors()){
       return "person/edit";
     }
-    repository.save(person);
+    personrepository.save(person);
     return "redirect:/";
-   }
+  }
 
   @PostConstruct
   public void dataInit(){
@@ -65,12 +66,12 @@ public class PersonController {
     suzuki.setName("鈴木");
     suzuki.setAge(23);
     suzuki.setEmail("suzuki@email.com");
-    repository.saveAndFlush(suzuki);
+    personrepository.saveAndFlush(suzuki);
  
     Person sato = new Person();
     sato.setName("佐藤");
     sato.setAge(20);
     sato.setEmail("sato@email.com");
-    repository.saveAndFlush(sato);
-   }
+    personrepository.saveAndFlush(sato);
+  }
 }
