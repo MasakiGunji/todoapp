@@ -30,6 +30,7 @@ public class Tasktype {
   @Size(max = 120)
   private String comment;
 
-  @OneToMany(mappedBy = "tasktype")
-  private List<Task> tasks = new ArrayList<>();
+  @OneToMany
+  @JoinColumn(name = "tasktype_id")
+  private List<Task> tasks;
 }
