@@ -45,9 +45,9 @@
 
   <div class="container">
     <div class="row mt-5">
-      <div class="col-4">
+      <div class="col-8 mx-auto">
         <h2>タスクを登録</h2>
-        <form th:action="@{/task/create}" th:object="${task}" method="post">
+        <form th:action="@{/task/update/{id}(id=${id})}" th:object="${task}" method="post">
           <table class="table">
             <tbody>
               <tr>
@@ -77,65 +77,8 @@
               <option th:value="${tasktype.id}"  th:text="${tasktype.type}"></option>
             </tr>
           </select><br>
-          <button class="btn btn-primary float-right">追加</button>
+          <button class="btn btn-success float-right">更新</button>
         </form>
-      </div>
-      <div class="col-8">
-        <div class="container">
-          <div class="row">
-            <div class="col-4"> 
-              <h2>未着手</h2>
-              <table class="table table-warning table-striped">
-                <thead>
-                  <tr>
-                    <th>タイトル</th>
-                    <th>終了予定日</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="task1:  ${tasks1}">
-                    <td class="font-weight-bold"><a th:href="@{/task/edit/{id}(id=${task1.id})}">[[${task1.title}]]</a></td>
-                    <td class="font-weight-bold">[[${task1.deadline}]]</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-4"> 
-              <h2>対応中</h2>
-              <table class="table table-primary table-striped">
-                <thead>
-                  <tr>
-                    <th>タイトル</th>
-                    <th>終了予定日</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="task2:  ${tasks2}">
-                    <td class="font-weight-bold"><a th:href="@{/task/edit/{id}(id=${task2.id})}">[[${task2.title}]]</a></td>
-                    <td class="font-weight-bold">[[${task2.deadline}]]</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="col-4"> 
-              <h2>完了</h2>
-              <table class="table table-success table-striped">
-                <thead>
-                  <tr>
-                    <th>タイトル</th>
-                    <th>終了予定日</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="task3:  ${tasks3}">
-                    <td class="font-weight-bold"><a th:href="@{/task/edit/{id}(id=${task3.id})}">[[${task3.title}]]</a></td>
-                    <td class="font-weight-bold">[[${task3.deadline}]]</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

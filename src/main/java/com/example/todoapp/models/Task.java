@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,7 +21,7 @@ public class Task {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name = "tasktype_id")
   private Tasktype tasktype;
 
@@ -34,6 +33,4 @@ public class Task {
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate deadline;
-
-
 }

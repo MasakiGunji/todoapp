@@ -26,7 +26,7 @@ public class PersonController {
   @GetMapping("/")
   public String index(@ModelAttribute Person person, Model model){
     model.addAttribute("people", personrepository.findAll());
-    return "person/index";
+    return "index_boot";
   }
 
   @PostMapping("/create")

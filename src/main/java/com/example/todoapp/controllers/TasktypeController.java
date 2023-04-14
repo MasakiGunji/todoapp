@@ -66,18 +66,18 @@ public class TasktypeController {
   @PostConstruct
   public void dataInit(){
     Tasktype wait = new Tasktype();
-    wait.setType("待ち");
-    wait.setComment("待ち状態");
+    wait.setType("未着手");
+    wait.setComment("まだ業務に入れていない");
     tasktyperepository.saveAndFlush(wait);
  
     Tasktype common = new Tasktype();
     common.setType("対応中");
-    common.setComment("通常の対応中");
+    common.setComment("現在行っている業務");
     tasktyperepository.saveAndFlush(common);
 
     Tasktype emergency = new Tasktype();
-    emergency.setType("緊急");
-    emergency.setComment("最重要！");
+    emergency.setType("完了");
+    emergency.setComment("終わった業務");
     tasktyperepository.saveAndFlush(emergency);
   }
 }
